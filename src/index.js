@@ -1,13 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
 import './index.css';
-import App from './App';
+import Login from './views/Login';
 import * as serviceWorker from './serviceWorker';
+import 'semantic-ui-css/semantic.min.css';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <BrowserRouter>
+    <Route exact path="/" component={Login} />
+  </BrowserRouter>,
+
+  // <React.StrictMode>
+  // <App />
+  // </React.StrictMode>,
   document.getElementById('root')
 );
 

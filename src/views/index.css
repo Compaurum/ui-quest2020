@@ -1,0 +1,11 @@
+/* .ui.container.grid { */
+    
+/* } */
+.login__logo {
+    max-width: 250px;
+    max-height: 250px;
+}
+.login__title {
+    font-weight: 800;
+    font-size: x-large;
+}
