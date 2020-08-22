@@ -11,15 +11,15 @@ const Navigation = () => {
     <div className="navigation">
       <a href="#" className="navigation__button">
         <img src={tea} alt="quest start button" className="navigation__icon"/>
-        <p className="navigation__description">Квест</p>
+        Квест
       </a>
       <a href="#" className="navigation__button">
         <img src={app} alt="Visual chalenge button" className="navigation__icon"/>
-        <p className="navigation__description">Фотозадания</p>
+        Фотозадания
       </a>
       <a href="#" className="navigation__button active">
         <img src={help} alt="help button" className="navigation__icon"/>
-        <p className="navigation__description">Справка</p>
+        Справка
       </a>
     </div>
   )

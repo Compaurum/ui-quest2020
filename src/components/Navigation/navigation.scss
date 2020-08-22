@@ -6,7 +6,9 @@
   &__button {
     display: flex;
     flex-direction: column;
+    text-decoration: none;
     align-items: center;
+    color: #666;
     cursor: pointer;
 
     &.active {

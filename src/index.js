@@ -6,6 +6,10 @@ import './index.css';
 import Login from './views/Login';
 import Welcome from './views/Welcome';
 import QuestPage from './views/QuestPage';
+import SpecialQuest from './views/SpecialQuest';
+import NextQuest from './views/NextQuest';
+import Stages from './views/Stages';
+import Help from './views/Help';
 import * as serviceWorker from './serviceWorker';
 import 'semantic-ui-css/semantic.min.css';
 
@@ -14,6 +18,10 @@ ReactDOM.render(
     <Route exact path="/" component={Login} />
     <Route exact path="/welcome" component={Welcome} />
     <Route exact path="/quest" component={QuestPage} />
+    <Route exact path="/special" component={SpecialQuest} />
+    <Route exact path="/next" component={NextQuest} />
+    <Route exact path="/stages" component={Stages} />
+    <Route exact path="/help" component={Help} />
   </BrowserRouter>,
 
   // <React.StrictMode>
