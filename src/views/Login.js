@@ -1,15 +1,25 @@
 import React, { useState } from 'react';
-import { Image, Form, FormField, FormInput, Button } from 'semantic-ui-react';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { withRouter } from 'react-router-dom';
+import _ from 'lodash';
+import { Image, Form, FormField, FormInput, Button, Label } from 'semantic-ui-react';
 
 import LogoMedium from '../assets/images/logo-medium.jpg';
+import { REQUEST_NAMES } from '../settings/requests';
 import './index.css';
 
-const Login = () => {
+import { login } from '../redux/auth/actions'
+
+const Login = (props) => {
+    const { loginRequest, requestError } = props;
+    console.log(props)
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
     const handleSubmit = () => {
-        console.log(`login: ${login}, password: ${password}`)
+        loginRequest(login, password)
     }
+
     return (
         <div className="ui container grid middle aligned">
             <div className="login__container ui column centered grid">
@@ -27,6 +37,9 @@ const Login = () => {
                     <FormField>
                         <FormInput type="password" placeholder='Пароль' value={password} onChange={(e) => (setPassword(e.target.value))} />
                     </FormField>
+                    <FormField>
+                        {requestError && <Label style={{ color: 'red', background: 'transparent' }}>Invalid email or password</Label>}
+                    </FormField>
                     <Button type='submit' color="primary" onClick={handleSubmit}>Submit</Button>
                 </Form>
             </div>
@@ -34,4 +47,13 @@ const Login = () => {
     )
 }
 
-export default Login;
+const mapStateToProps = (state) => {
+    return {
+        user: state.auth.currentUser,
+        requestError: _.get(state, `requests.${REQUEST_NAMES.LOGIN}.error`, '')
+    }
+}
+export default compose(
+    withRouter,
+    connect(mapStateToProps, { loginRequest: login })
+)(Login);

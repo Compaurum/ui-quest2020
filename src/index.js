@@ -1,7 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { Router, Route } from 'react-router-dom';
+import { Provider } from 'react-redux';
 import './index.css';
+
+import { store, history, persistor } from './redux/store';
 
 import Login from './views/Login';
 import Welcome from './views/Welcome';
@@ -14,16 +17,17 @@ import * as serviceWorker from './serviceWorker';
 import 'semantic-ui-css/semantic.min.css';
 
 ReactDOM.render(
-  <BrowserRouter>
-    <Route exact path="/" component={Login} />
-    <Route exact path="/welcome" component={Welcome} />
-    <Route exact path="/quest" component={QuestPage} />
-    <Route exact path="/special" component={SpecialQuest} />
-    <Route exact path="/next" component={NextQuest} />
-    <Route exact path="/stages" component={Stages} />
-    <Route exact path="/help" component={Help} />
-  </BrowserRouter>,
-
+  <Provider store={store}>
+    <Router history={history}>
+      <Route exact path="/" component={Login} />
+      <Route exact path="/welcome" component={Welcome} />
+      <Route exact path="/quest" component={QuestPage} />
+      <Route exact path="/special" component={SpecialQuest} />
+      <Route exact path="/next" component={NextQuest} />
+      <Route exact path="/stages" component={Stages} />
+      <Route exact path="/help" component={Help} />
+    </Router>
+  </Provider>,
   // <React.StrictMode>
   // <App />
   // </React.StrictMode>,
