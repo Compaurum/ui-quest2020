@@ -3,6 +3,7 @@ import { store, history } from '../../redux/store';
 import _ from 'lodash';
 import { API_URL } from '../../services/HttpService';
 import "./Header.scss"
+import { timeToSec, secToTime } from '../../utils/time';
 
 Number.prototype.toHHMMSS = function () {
   var sec_num = this; // don't forget the second param
@@ -19,12 +20,25 @@ Number.prototype.toHHMMSS = function () {
 const Header = ({ color }) => {
   const teamName = _.get(store.getState(), 'teams.myTeam.name', '');
   const teamAvatar = _.get(store.getState(), 'teams.myTeam.avatar.url', '');
-  console.log(teamAvatar);
   // "/uploads/super_gopher_cafefab6b6.png"
   const progress = _.get(store.getState(), 'teams.myTeam.progress', [])
   let timer = 0;
+  let continueTimer = false;
   progress.map((p) => {
-    timer += p.endTime - p.startTime
+    if (!p.start && !p.finish) {
+      return
+    }
+    const start = timeToSec(p.start);
+    if (!p.finish) {
+      const now = new Date();
+      var nowSec = now.getSeconds() + (60 * now.getMinutes()) + (60 * 60 * now.getHours());
+      timer += nowSec - start;
+
+      continueTimer = true;
+    } else {
+      const finish = timeToSec(p.finish);
+      timer += finish - start;
+    }
   })
 
   return (

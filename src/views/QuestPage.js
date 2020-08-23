@@ -1,4 +1,5 @@
 import React from "react"
+import { store, history } from '../redux/store';
 import { compose } from 'redux'
 import { connect } from 'react-redux'
 import ensureAuthorized from '../hocs/ensureAuthorized';
@@ -6,20 +7,21 @@ import ensureAuthorized from '../hocs/ensureAuthorized';
 import Quest from "../components/Quest"
 import Header from "../components/Header"
 import Navigation from "../components/Navigation"
-import image from '../assets/images/logo-medium.jpg' // Это тоже заглушка :)
 import "./global.scss"
 
-const fakeArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] // Это заглушка
 
-const QuestPage = () => {
+const QuestPage = ({ myTeam }) => {
+  // const myTeam = store.getState().teams.myTeam;
+
   return (
     <div>
       <div className="wrapper-container">
-        <Header teamName="Кузнечики" timer={true} color="#fff" />
+        <Header color="#fff" />
         <Quest
-          questions={fakeArray}
-          textFirstHint='Это не квадрат'
-          imageSecondHint={image}
+          questions={myTeam.roads}
+          progress={myTeam.progress}
+        // textFirstHint='Это не квадрат'
+        // imageSecondHint={image}
         />
         <Navigation />
       </div>
@@ -29,5 +31,7 @@ const QuestPage = () => {
 
 export default compose(
   ensureAuthorized,
-  connect(null, null)
+  connect((state) => {
+    return { myTeam: state.teams.myTeam }
+  }, null)
 )(QuestPage)

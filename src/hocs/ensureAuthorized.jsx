@@ -41,10 +41,11 @@ const ensureAuthorized = (Component) => {
       }
     }, [fetchMyTeam, shouldFetchTeam])
 
-    return <Component {...props} />
-    // return isLoggedIn
-    //   ? <Component {...props} />
-    //   : <Redirect to="/" />;
+    // return <Component {...props} />
+    return user && team
+      ? <Component {...props} />
+      : <></>
+    //<Redirect to="/" />;
   };
 
   return connect(
