@@ -2,15 +2,15 @@ import React from "react"
 
 import "./quest.scss"
 
-const Quest = () => {
+const Quest = ({textSecondHint, imageSecondHint, imageFirstHint, textFirstHint}) => {
   
   return (
     <div className="quest">
       <div className="quest__levels">
-        <a href="#" className="quest__level">&nbsp;</a>
-        <a href="#" className="quest__level">&nbsp;</a>
-        <a href="#" className="quest__level">&nbsp;</a>
-        <a href="#" className="quest__level">&nbsp;</a>
+        <a href="#" className="quest__level done">&nbsp;</a>
+        <a href="#" className="quest__level done">&nbsp;</a>
+        <a href="#" className="quest__level done">&nbsp;</a>
+        <a href="#" className="quest__level done">&nbsp;</a>
         <a href="#" className="quest__level active">&nbsp;</a>
         <a href="#" className="quest__level">&nbsp;</a>
         <a href="#" className="quest__level">&nbsp;</a>
@@ -21,9 +21,17 @@ const Quest = () => {
       <div className="quest__info">
         <div className="quest__question">Какой формы Земля?</div>
         <div className="quest__hint-timer">Время до подсказки 03:27</div>
-        <div className="quest__hint">Это не квадрат</div>
+        <div className="quest__hint">
+          {(!textSecondHint && !imageSecondHint) && 'Подсказка'}
+          {textFirstHint && textFirstHint}
+          {imageFirstHint && <img src={imageFirstHint} alt="Подсказка"/>}
+        </div>
         <div className="quest__line"></div>
-        <div className="quest__hint">Подсказка 2</div>
+        <div className="quest__hint">
+          {(!textSecondHint && !imageSecondHint) && 'Подсказка 2'}
+          {textSecondHint && textSecondHint}
+          {imageSecondHint && <img src={imageSecondHint} alt="Подсказка"/>}
+        </div>
         <form className="quest__form">
           <input type="text" placeholder="Введите код" className="quest__input"/>
           <input type="submit" className="quest__btn" value="Загрузить"/>

@@ -34,8 +34,8 @@ const Stages = () => {
         <Card text='Флаг Украины' handleClick={handleClick} isVisible={visible}/>
         <Card text='BMW' handleClick={handleClick} isVisible={visible}/>
         </div>
-        <Navigation />
       </div>
+      <Navigation />
     </div>
   )
 }
