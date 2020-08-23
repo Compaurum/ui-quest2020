@@ -7,7 +7,7 @@ import { store, history } from '../redux/store';
 import Login from './Login';
 import Welcome from './Welcome';
 import QuestPage from './QuestPage';
-import SpecialQuestPage from './SpecialQuest';
+import SpecialQuestPage from './SpecialQuestPage';
 import NextQuest from './NextQuest';
 import Stages from './Stages';
 import Help from './Help';
