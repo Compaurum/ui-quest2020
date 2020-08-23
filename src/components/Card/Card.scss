@@ -1,14 +1,30 @@
 .card {
   display: flex;
-  padding: 5px;
-  border: 2px solid #fff;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: #eee;
+  justify-content: space-between;
+  align-items: center;
+
+  &:not(:last-child) {
+    margin-bottom: 10px;
+  }
 
   &__icon {
-    max-width: 20px;
-    margin-right: 10px;
-
     & img {
-      width: 100%;
+      display: block;
+      width: 20px;
     }
+  }
+
+  &__text {
+    margin: 0;
+  }
+
+  &__unchecked {
+    width: 20px;
+    height: 20px;
+    border-radius: 3px;
+    background-color: #fff;
   }
 }
