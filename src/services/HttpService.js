@@ -2,7 +2,7 @@ import axios from 'axios';
 import { get } from 'lodash';
 
 import { logout } from '../redux/auth/actions';
-const API_URL = 'http://ec2-35-158-5-231.eu-central-1.compute.amazonaws.com:1337'
+export const API_URL = 'http://ec2-35-158-5-231.eu-central-1.compute.amazonaws.com:1337'
 // const API_URL = 'http://localhost'
 
 /**

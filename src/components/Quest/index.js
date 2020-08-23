@@ -6,6 +6,7 @@ import "./quest.scss"
 
 const Quest = ({ textSecondHint, imageSecondHint, imageFirstHint, textFirstHint }) => {
 
+  const timer = 0;
   const handleSubmit = () => {
     history.push('/special')
   }
@@ -25,7 +26,7 @@ const Quest = ({ textSecondHint, imageSecondHint, imageFirstHint, textFirstHint 
       </div>
       <div className="quest__info">
         <div className="quest__question">Какой формы Земля?</div>
-        <div className="quest__hint-timer">Время до подсказки 03:27</div>
+        <div className="quest__hint-timer">{`Время до подсказки ${timer.toHHMMSS()}`}</div>
         <div className="quest__hint">
           {(!textSecondHint && !imageSecondHint) && 'Подсказка'}
           {textFirstHint && textFirstHint}
