@@ -17,6 +17,32 @@ export const ACTION_NAMES = {
     REMOVE_MY_COMPANY: 'REMOVE_MY_COMPANY',
 };
 
+export const fetchMe = () => async (dispatch) => {
+    const REQUEST = REQUEST_NAMES.FETCH_ME;
+    dispatch(setRequestInProgress(REQUEST, true));
+
+    let response;
+    const httpService = new HttpService(localStorage.getItem('auth_token'), dispatch);
+
+    try {
+        response = await httpService.get(
+            '/users/me'
+        );
+    } catch (err) {
+        dispatch(setRequestError(REQUEST, err.toString()));
+        dispatch(setRequestInProgress(REQUEST, false));
+        return;
+    }
+
+    dispatch(setRequestSuccessful(REQUEST, true));
+    dispatch(setRequestInProgress(REQUEST, false));
+    dispatch(setCurrentUser(response.data));
+    // history.push('/welcome')
+    // if (isUserCompanyAdmin(response.data.user)) {
+    //     dispatch(fetchMyCompany());
+    // }
+};
+
 export const login = (email, password) => async (dispatch) => {
     const REQUEST = REQUEST_NAMES.LOGIN;
     dispatch(setRequestInProgress(REQUEST, true));
@@ -41,6 +67,7 @@ export const login = (email, password) => async (dispatch) => {
     dispatch(setRequestSuccessful(REQUEST, true));
     dispatch(setRequestInProgress(REQUEST, false));
 
+    localStorage.setItem('auth_token', response.data.jwt);
     dispatch(setAuthToken(response.data.jwt));
     dispatch(setCurrentUser(response.data.user));
     history.push('/welcome')

@@ -1,7 +1,7 @@
 import { ACTION_NAMES } from './actions';
 
 const INITIAL_STATE = {
-  token: null,
+  token: localStorage.getItem('auth_token'),
   currentUser: null,
 
   isLoginInProgress: false,

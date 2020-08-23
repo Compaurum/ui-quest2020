@@ -11,20 +11,23 @@ import SpecialQuestPage from './SpecialQuestPage';
 import NextQuest from './NextQuest';
 import Stages from './Stages';
 import Help from './Help';
+import RouteWrapper from './RouterWrapper';
 
 
 const App = () => {
     return (
         <Provider store={store}>
-            <Router history={history}>
-                <Route exact path="/" component={Login} />
-                <Route exact path="/welcome" component={Welcome} />
-                <Route exact path="/quest" component={QuestPage} />
-                <Route exact path="/special" component={SpecialQuestPage} />
-                <Route exact path="/next" component={NextQuest} />
-                <Route exact path="/stages" component={Stages} />
-                <Route exact path="/help" component={Help} />
-            </Router>
+            <RouteWrapper>
+                <Router history={history}>
+                    <Route exact path="/" component={Login} />
+                    <Route exact path="/welcome" component={Welcome} />
+                    <Route exact path="/quest" component={QuestPage} />
+                    <Route exact path="/special" component={SpecialQuestPage} />
+                    <Route exact path="/next" component={NextQuest} />
+                    <Route exact path="/stages" component={Stages} />
+                    <Route exact path="/help" component={Help} />
+                </Router>
+            </RouteWrapper>
         </Provider>
     )
 }

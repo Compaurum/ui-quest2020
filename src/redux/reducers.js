@@ -2,8 +2,8 @@ import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 
 import auth from './auth/reducer';
-// import forms from './forms/reducer';
-// import orders from './orders/reducer';
+import teams from './team/reducer';
+// import requests from './orders/reducer';
 // import themeChanger from './themeChanger/reducer';
 // import LanguageSwitcher from './languageSwitcher/reducer';
 // import themeSetting from './themeSettings/reducer';
@@ -14,7 +14,7 @@ import requests from './requests/reducer';
 
 const createReducer = (asyncReducers) => combineReducers({
   auth,
-  // forms,
+  teams,
   // orders,
   // installers,
   // companies,
