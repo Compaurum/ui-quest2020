@@ -1,7 +1,6 @@
 import React from 'react'
 import Header from '../components/Header'
 import SpecialQuest from '../components/SpecialQuest'
-import image from '../assets/images/logo-medium.jpg'
 import './global.scss'
 
 let text = `Неподалеку от вас находиться один из организаторов.
@@ -13,7 +12,7 @@ const SpecialQuestPage = () => {
   return (
     <div className='wrapper-container'>
       <Header color='#fff' teamName='Кузнечики'/>
-      <SpecialQuest text={text} image={image}/>
+      <SpecialQuest text={text}/>
     </div>
   )
 }
