@@ -18,6 +18,12 @@ export const secToTime = (sec) => {
     return `${pad2(hours)}:${pad2(minutes)}:${pad2(seconds)}:000`
 }
 
+export const nowSec = () => {
+    const now = new Date();
+    return now.getSeconds() + (60 * now.getMinutes()) + (60 * 60 * now.getHours());
+}
+
+
 function pad2(num) {
     var s = num + "";
     while (s.length < 2) s = "0" + s;

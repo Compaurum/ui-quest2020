@@ -1,35 +1,64 @@
 import React, { useState } from "react"
-
+import { connect } from 'react-redux'
 import { store, history } from '../../redux/store';
 import { API_URL } from '../../services/HttpService';
-
+import { uploadPuzzlePhoto } from '../../redux/team/actions'
+import _ from 'lodash';
+import { secToTime, timeToSec, nowSec } from '../../utils/time'
 import "./quest.scss"
 
-const Quest = ({ questions, progress }) => {
+const tenMinutes = 10 * 60;
+
+const Quest = ({ questions, progress, uploadPuzzlePhoto, myTeam }) => {
   const [code, setCode] = useState('')
   const [image, setImage] = useState(null)
   const [wrongCode, setWrongCode] = useState(false);
+  const [uploadImageError, setUploadImageError] = useState(false);
 
-  const timer = 0;
-  let activeQuestion = null
-
+  let activeQuestion = null;
+  let activeQuestionIndex = -1;
   progress.map((p, index) => {
     if (p.end) {
       questions[index].done = true
     } else if (p.start) {
       questions[index].active = true
       activeQuestion = questions[index]
+      activeQuestionIndex = index
     }
   })
 
-  const textFirstHint = activeQuestion.hint1;
-  const textSecondHint = activeQuestion.hint2;
-  const imageFirstHint = activeQuestion.hint1picture ? API_URL + activeQuestion.hint1picture.url : '';
-  const imageSecondHint = activeQuestion.hint2picture ? API_URL + activeQuestion.hint2picture.url : '';
-  const handleSubmit = () => {
+  const isPhotoUploaded = _.get(myTeam, `progress[${activeQuestionIndex}].photo`);
+  const firstHintTimer = timeToSec(progress[activeQuestionIndex].start) + tenMinutes - nowSec();
+  const secondHintTimer = timeToSec(progress[activeQuestionIndex].start) + tenMinutes * 2 - nowSec();
+  const timer = firstHintTimer > 0 ? firstHintTimer : secondHintTimer > 0 ? secondHintTimer : 0;
+
+  const textFirstHint = firstHintTimer > 0 ? null : activeQuestion.hint1;
+  const textSecondHint = secondHintTimer > 0 ? null : activeQuestion.hint2;
+  const imageFirstHint = firstHintTimer > 0 ? null : activeQuestion.hint1picture ? API_URL + activeQuestion.hint1picture.url : '';
+  const imageSecondHint = secondHintTimer > 0 ? null : activeQuestion.hint2picture ? API_URL + activeQuestion.hint2picture.url : '';
+  const uploadClick = (e) => {
+    e.stopPropagation();
+    var imagefile = document.getElementById('quest__upload');
+    imagefile.value = '';
+    imagefile.click()
+  }
+
+  const onFileSelected = (e) => {
+    if (e.target.files.length > 0) {
+      uploadPuzzlePhoto(e.target.files[0], activeQuestionIndex)
+    }
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("onSubmit")
     if (code !== activeQuestion.answer) {
       setWrongCode(true)
-      return
+      return false
+    }
+    if (!isPhotoUploaded) {
+      setUploadImageError(true)
+      return false
     }
     history.push('/special')
   }
@@ -62,17 +91,23 @@ const Quest = ({ questions, progress }) => {
           {textSecondHint && textSecondHint}
           {imageSecondHint && <img src={imageSecondHint} alt="Подсказка" />}
         </div>
-        <form className="quest__form">
+        <form className="quest__form" onSubmit={(e) => { e.preventDefault() }}>
           <input type="text" placeholder="Введите код" className="quest__input" value={code} onChange={(e) => { setCode(e.target.value) }} />
-          <input type="submit" className="quest__btn" value="Загрузить" />
+          <input id="quest__upload" type="file" className="quest__btn" onChange={onFileSelected} />
+          <button className='quest__btn' onClick={uploadClick}> {isPhotoUploaded ? 'Загрузить фото' : 'Загружено'}</button>
         </form>
 
         {wrongCode && <div className="quest__alert">Неправильный код!</div>}
-        <div className="quest__alert">Загрузите картинку!</div>
+        {uploadImageError && <div className="quest__alert">Загрузите картинку!</div>}
         <button className="quest__btn quest__submit" onClick={handleSubmit}>Отправить</button>
       </div>
-    </div>
+    </div >
   )
 }
 
-export default Quest
+const mapStateToProps = (state) => {
+  return {
+    myTeam: state.teams.myTeam,
+  }
+}
+export default connect(mapStateToProps, { uploadPuzzlePhoto })(Quest)

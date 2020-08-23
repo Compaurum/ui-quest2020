@@ -72,11 +72,10 @@ export default class HttpService {
     ));
   }
 
-  post(path, data = {}) {
-    const headers = this.authToken
-      ? { Authorization: `Bearer ${this.authToken}` }
-      : {};
-
+  post(path, data = {}, headers) {
+    if (this.authToken) {
+      headers = { ...headers, Authorization: `Bearer ${this.authToken}` }
+    }
     return this.makeRequest(axios.post(
       `${API_URL}${path}`,
       data,
