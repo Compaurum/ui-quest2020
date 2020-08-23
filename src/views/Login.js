@@ -21,6 +21,7 @@ const Login = (props) => {
     }
 
     return (
+      <div className="wrapper-container">
         <div className="ui container grid middle aligned">
             <div className="login__container ui column centered grid">
                 <div className="ui row">
@@ -44,6 +45,7 @@ const Login = (props) => {
                 </Form>
             </div>
         </div>
+      </div>
     )
 }
 

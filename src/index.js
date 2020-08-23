@@ -9,7 +9,7 @@ import { store, history, persistor } from './redux/store';
 import Login from './views/Login';
 import Welcome from './views/Welcome';
 import QuestPage from './views/QuestPage';
-import SpecialQuest from './views/SpecialQuest';
+import SpecialQuestPage from './views/SpecialQuestPage';
 import NextQuest from './views/NextQuest';
 import Stages from './views/Stages';
 import Help from './views/Help';
@@ -22,7 +22,7 @@ ReactDOM.render(
       <Route exact path="/" component={Login} />
       <Route exact path="/welcome" component={Welcome} />
       <Route exact path="/quest" component={QuestPage} />
-      <Route exact path="/special" component={SpecialQuest} />
+      <Route exact path="/special" component={SpecialQuestPage} />
       <Route exact path="/next" component={NextQuest} />
       <Route exact path="/stages" component={Stages} />
       <Route exact path="/help" component={Help} />

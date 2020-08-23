@@ -16,6 +16,7 @@ a {
   font-family: 'Lato', sans-serif;
   background: rgb(252,253,254);
   background: linear-gradient(45deg, rgba(252,253,254,1) 0%, rgba(148,195,233,1) 100%);
+  min-height: 100%;
 
   @media screen and (max-width: 1999px) {
     max-width: 600px;
@@ -45,7 +46,7 @@ a {
   }
 }
 
-.special-content {
+.special {
   display: flex;
   flex-direction: column;
   padding: 30px;
@@ -69,6 +70,10 @@ a {
     padding: 20px;
     font-size: 18px;
     border-radius: 3px;
+  }
+
+  &__img {
+    margin-bottom: 20px;
   }
 }
 
