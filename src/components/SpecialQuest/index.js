@@ -1,11 +1,16 @@
-import React from 'react'
+import React from 'react';
+import { history } from '../../redux/store';
 
-const SpecialQuest = ({text}) => {
+const SpecialQuest = ({ text }) => {
+  const handleSubmit = () => {
+    history.push('/next')
+  }
+
   return (
     <div className='special'>
       <h2 className='special__title'>Спецзадание</h2>
       {text && <p className='special__text'>{text}</p>}
-      <a href='/next' className='special__btn'>Выполнено</a>
+      <div className='special__btn' onClick={handleSubmit}>Выполнено</div>
     </div>
   )
 }

@@ -1,9 +1,14 @@
 import React from "react"
 
+import { store, history } from '../../redux/store';
+
 import "./quest.scss"
 
-const Quest = ({textSecondHint, imageSecondHint, imageFirstHint, textFirstHint}) => {
-  
+const Quest = ({ textSecondHint, imageSecondHint, imageFirstHint, textFirstHint }) => {
+
+  const handleSubmit = () => {
+    history.push('/special')
+  }
   return (
     <div className="quest">
       <div className="quest__levels">
@@ -24,20 +29,20 @@ const Quest = ({textSecondHint, imageSecondHint, imageFirstHint, textFirstHint})
         <div className="quest__hint">
           {(!textSecondHint && !imageSecondHint) && 'Подсказка'}
           {textFirstHint && textFirstHint}
-          {imageFirstHint && <img src={imageFirstHint} alt="Подсказка"/>}
+          {imageFirstHint && <img src={imageFirstHint} alt="Подсказка" />}
         </div>
         <div className="quest__line"></div>
         <div className="quest__hint">
           {(!textSecondHint && !imageSecondHint) && 'Подсказка 2'}
           {textSecondHint && textSecondHint}
-          {imageSecondHint && <img src={imageSecondHint} alt="Подсказка"/>}
+          {imageSecondHint && <img src={imageSecondHint} alt="Подсказка" />}
         </div>
         <form className="quest__form">
-          <input type="text" placeholder="Введите код" className="quest__input"/>
-          <input type="submit" className="quest__btn" value="Загрузить"/>
+          <input type="text" placeholder="Введите код" className="quest__input" />
+          <input type="submit" className="quest__btn" value="Загрузить" />
         </form>
         <div className="quest__alert">Загрузите картинку!</div>
-        <button className="quest__btn quest__submit">Отправить</button>
+        <button className="quest__btn quest__submit" onClick={handleSubmit}>Отправить</button>
       </div>
     </div>
   )
