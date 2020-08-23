@@ -3,7 +3,7 @@ import React from "react"
 import Quest from "../components/Quest"
 import Header from "../components/Header"
 import Navigation from "../components/Navigation"
-import image from '../assets/images/logo-medium.jpg'
+import image from '../assets/images/logo-medium.jpg' // Это тоже заглушка :)
 import "./global.scss"
 
 const fakeArray = [1,2,3,4,5,6,7,8,9,10] // Это заглушка

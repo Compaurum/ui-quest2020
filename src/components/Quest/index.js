@@ -7,10 +7,10 @@ const Quest = ({textSecondHint, imageSecondHint, imageFirstHint, textFirstHint})
   return (
     <div className="quest">
       <div className="quest__levels">
-        <a href="#" className="quest__level">&nbsp;</a>
-        <a href="#" className="quest__level">&nbsp;</a>
-        <a href="#" className="quest__level">&nbsp;</a>
-        <a href="#" className="quest__level">&nbsp;</a>
+        <a href="#" className="quest__level done">&nbsp;</a>
+        <a href="#" className="quest__level done">&nbsp;</a>
+        <a href="#" className="quest__level done">&nbsp;</a>
+        <a href="#" className="quest__level done">&nbsp;</a>
         <a href="#" className="quest__level active">&nbsp;</a>
         <a href="#" className="quest__level">&nbsp;</a>
         <a href="#" className="quest__level">&nbsp;</a>
