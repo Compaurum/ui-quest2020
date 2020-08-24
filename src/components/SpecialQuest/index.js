@@ -1,9 +1,10 @@
 import React from 'react';
 import { history } from '../../redux/store';
 
-const SpecialQuest = ({ text }) => {
+const SpecialQuest = ({ text, handler }) => {
   const handleSubmit = () => {
-    history.push('/next')
+    handler();
+    // history.push('/next')
   }
 
   return (

@@ -12,6 +12,7 @@ import NextQuest from './NextQuest';
 import Stages from './Stages';
 import Help from './Help';
 import RouteWrapper from './RouterWrapper';
+import Ending from './Ending';
 
 
 const App = () => {
@@ -26,6 +27,7 @@ const App = () => {
                     <Route exact path="/next" component={NextQuest} />
                     <Route exact path="/stages" component={Stages} />
                     <Route exact path="/help" component={Help} />
+                    <Route exact path="/ending" component={Ending} />
                 </Router>
             </RouteWrapper>
         </Provider>

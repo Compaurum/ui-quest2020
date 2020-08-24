@@ -46,7 +46,7 @@ export const fetchMyTeam = () => async (dispatch, getState) => {
     // }
 };
 
-export const uploadPuzzlePhoto = (file, puzzleIndex) => async (dispatch, getState) => {
+export const uploadPuzzlePhoto = (file, puzzleIndex, data = {}) => async (dispatch, getState) => {
     const REQUEST = REQUEST_NAMES.UPLOAD_PUZZLE_PHOTO;
     dispatch(setRequestInProgress(REQUEST, true));
 
@@ -54,8 +54,10 @@ export const uploadPuzzlePhoto = (file, puzzleIndex) => async (dispatch, getStat
     const httpService = new HttpService(localStorage.getItem('auth_token'), dispatch);
 
     var formData = new FormData();
-    formData.append(`files.progress[${puzzleIndex}].photo`, file, file.name);
-    formData.append(`data`, JSON.stringify({}));
+    if (file) {
+        formData.append(`files.progress[${puzzleIndex}].photo`, file, file.name);
+    }
+    formData.append(`data`, JSON.stringify(data));
     // formData.append("files", file);
     // formData.append("ref", 'team.progress[0].photo');
     // formData.append("refId", store.getState().teams.myTeam.id); //

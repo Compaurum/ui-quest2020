@@ -9,12 +9,12 @@ export const timeToSec = (time) => {
 
 export const secToTime = (sec) => {
     let secondsLeft = sec;
-    const hours = Math.round(sec / 3600)
+    const hours = Math.floor(sec / 3600)
     secondsLeft -= hours * 3600;
-    const minutes = Math.round(sec / 60)
+    const minutes = Math.floor(secondsLeft / 60)
     secondsLeft -= minutes * 60;
     const seconds = secondsLeft;
-
+    console.log(hours, minutes, seconds)
     return `${pad2(hours)}:${pad2(minutes)}:${pad2(seconds)}:000`
 }
 
