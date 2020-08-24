@@ -1,7 +1,8 @@
 import { ACTION_NAMES } from './actions';
 
 const INITIAL_STATE = {
-  myTeam: null
+  myTeam: null,
+  photoTasks: []
 };
 
 export default function reduce(state = INITIAL_STATE, action) {
@@ -15,6 +16,11 @@ export default function reduce(state = INITIAL_STATE, action) {
       return {
         ...state,
         myTeam: action.team,
+      };
+    case ACTION_NAMES.SET_QUESTIONS:
+      return {
+        ...state,
+        photoTasks: action.tasks,
       };
     default:
       return state;

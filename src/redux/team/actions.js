@@ -12,6 +12,7 @@ import { REQUEST_NAMES } from '../../settings/requests';
 export const ACTION_NAMES = {
     FETCH_MY_TEAM: 'GET_MY_TEAM',
     SET_MY_TEAM: 'UPDATE_MY_TEAM',
+    SET_QUESTIONS: 'SET_QUESTIONS',
 };
 
 export const fetchMyTeam = () => async (dispatch, getState) => {
@@ -45,6 +46,26 @@ export const fetchMyTeam = () => async (dispatch, getState) => {
     //     dispatch(fetchMyCompany());
     // }
 };
+export const fetchPhotoTasks = () => async (dispatch, getState) => {
+    const REQUEST = REQUEST_NAMES.UPLOAD_PUZZLE_PHOTO;
+    dispatch(setRequestInProgress(REQUEST, true));
+
+    let response;
+    const httpService = new HttpService(localStorage.getItem('auth_token'), dispatch);
+
+    try {
+        response = await httpService.get(
+            `/questions?type=photo`
+        );
+    } catch (err) {
+        dispatch(setRequestError(REQUEST, err.toString()));
+        dispatch(setRequestInProgress(REQUEST, false));
+        return;
+    }
+    dispatch(setRequestSuccessful(REQUEST, true));
+    dispatch(setRequestInProgress(REQUEST, false));
+    dispatch(setQuestions(response.data));
+}
 
 export const uploadPuzzlePhoto = (file, puzzleIndex, data = {}) => async (dispatch, getState) => {
     const REQUEST = REQUEST_NAMES.UPLOAD_PUZZLE_PHOTO;
@@ -81,6 +102,10 @@ export const uploadPuzzlePhoto = (file, puzzleIndex, data = {}) => async (dispat
     console.log(file)
 }
 
+export const setQuestions = (tasks) => ({
+    type: ACTION_NAMES.SET_QUESTIONS,
+    tasks,
+});
 export const setMyTeam = (team) => ({
     type: ACTION_NAMES.SET_MY_TEAM,
     team,
