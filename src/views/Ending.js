@@ -5,7 +5,7 @@ import './global.scss'
 import { compose } from 'redux'
 import ensureAuthorized from '../hocs/ensureAuthorized'
 
-let text = `Прийдите на место сбора.`
+let text = `Поздравляем! Вы выполнили все задания!`
 
 const Ending = () => {
   return (
