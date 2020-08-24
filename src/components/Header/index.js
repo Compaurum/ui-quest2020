@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import { store, history } from '../../redux/store';
 import _ from 'lodash';
 import { API_URL } from '../../services/HttpService';
@@ -18,6 +18,14 @@ Number.prototype.toHHMMSS = function () {
 }
 
 const Header = ({ color }) => {
+  const [counter, setCounter] = useState(0);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setCounter(counter + 1)
+    }, 1000);
+    return () => { clearTimeout(timer) }
+  }, [counter]);
+
   const teamName = _.get(store.getState(), 'teams.myTeam.name', '');
   const teamAvatar = _.get(store.getState(), 'teams.myTeam.avatar.url', '');
   // "/uploads/super_gopher_cafefab6b6.png"

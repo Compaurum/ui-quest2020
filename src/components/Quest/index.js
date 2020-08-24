@@ -8,6 +8,7 @@ import { secToTime, timeToSec, nowSec } from '../../utils/time'
 import { REQUEST_NAMES } from '../../settings/requests'
 import "./quest.scss"
 import { setRequestError } from "../../redux/requests/actions";
+import { useEffect } from "react";
 
 const tenMinutes = 10 * 60;
 
@@ -16,6 +17,14 @@ const Quest = ({ questions, progress, uploadPuzzlePhoto, myTeam, isUpdateInProgr
   const [image, setImage] = useState(null)
   const [wrongCode, setWrongCode] = useState(false);
   const [uploadImageError, setUploadImageError] = useState(false);
+
+  const [counter, setCounter] = useState(0);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setCounter(counter + 1)
+    }, 1000);
+    return () => { clearTimeout(timer) }
+  }, [counter]);
 
   let activeQuestion = null;
   let activeQuestionIndex = -1;
