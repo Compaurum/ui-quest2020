@@ -67,6 +67,42 @@ export const fetchPhotoTasks = () => async (dispatch, getState) => {
     dispatch(setQuestions(response.data));
 }
 
+export const uploadAddtitionalPhoto = (file, puzzleIndex, data = {}) => async (dispatch, getState) => {
+    const REQUEST = REQUEST_NAMES.UPLOAD_PUZZLE_PHOTO;
+    dispatch(setRequestInProgress(REQUEST, true));
+
+    let response;
+    const httpService = new HttpService(localStorage.getItem('auth_token'), dispatch);
+
+    var formData = new FormData();
+    if (file) {
+        formData.append(`files.phototask[${puzzleIndex}].completedPhoto`, file, file.name);
+    }
+    formData.append(`data`, JSON.stringify(data));
+    // formData.append("files", file);
+    // formData.append("ref", 'team.progress[0].photo');
+    // formData.append("refId", store.getState().teams.myTeam.id); //
+    // formData.append("field", 'photo');
+    //'team.progress' 1
+    try {
+        response = await httpService.put(
+            `/teams/${store.getState().teams.myTeam.id}`,
+            formData,
+            { 'Content-Type': 'multipart/form-data' }
+        );
+    } catch (err) {
+        dispatch(setRequestError(REQUEST, err.toString()));
+        dispatch(setRequestInProgress(REQUEST, false));
+        return;
+    }
+    dispatch(setRequestSuccessful(REQUEST, true));
+    dispatch(setRequestInProgress(REQUEST, false));
+    dispatch(setMyTeam(response.data));
+
+    // console.log(file)
+}
+
+
 export const uploadPuzzlePhoto = (file, puzzleIndex, data = {}) => async (dispatch, getState) => {
     const REQUEST = REQUEST_NAMES.UPLOAD_PUZZLE_PHOTO;
     dispatch(setRequestInProgress(REQUEST, true));
